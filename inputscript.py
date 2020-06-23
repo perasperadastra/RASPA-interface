@@ -323,8 +323,8 @@ def easymode():
         c=1
         while c==1:
             des=input('Choose an option: ')
-            clear()
             if des=='A':
+                clear()
                 print('         A)   Get Geometric Surface Area:')
                 geomarea= getgeometricsurfacearea()
                 d=1
@@ -338,6 +338,7 @@ def easymode():
                         d=2
                         c=2
             if des=='B':
+                clear()
                 print('         B)   Get Helium void fraction:  ')    
                 voidfrac=getheliumvoidfraction()
                 d=1
@@ -352,6 +353,7 @@ def easymode():
                         c=2
                 
             if des=='C':
+                clear()
                 print('         C)   Get pore size distribution:')
                 getpore=getporesizedistribution()
                 d=1
@@ -365,6 +367,7 @@ def easymode():
                         d=2
                         c=2
             if des=='D':
+                clear()
                 print('         D)   Run a mixture of gases:')        
                 mixt=runmixture()
                 d=1
@@ -378,6 +381,7 @@ def easymode():
                         d=2
                         c=2
             if des=='E':
+                clear()
                 print('         E)   Create a script (input file):')        
                 script=createscript()
                 d=1
@@ -391,6 +395,7 @@ def easymode():
                         d=2
                         c=2
             if des=='E.2':
+                clear()
                 print('         E.2) Create and run the script:')        
                 runed, inp=runscript(0)
                 d=1
@@ -413,6 +418,7 @@ def easymode():
                         c=2
                         
             if des=='F':
+                clear()
                 print('         F)   Run a simulation (limited parameters and assumed sensible defaults):')       
                 out=runn()
                 d=1
