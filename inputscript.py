@@ -2,18 +2,13 @@ import sys
 import pybel
 import RASPA2
 import matplotlib.pyplot as mtplot
+import os 
 
 
-work=open('texto.txt','r')
-work1=open('texto.txt','r')
-
-#input=open('input.txt,'+')
-print('           Hello this is a RASPA2 input-file creator'+'\n'+'           Take it easy :D',end='\n')
-nada=input('')
-print('')
-print('')
-
-
+#####################
+def clear():
+    os.system('clear')
+###################
 def index(value):
     index={}
     number=0
@@ -49,7 +44,7 @@ def inp1(value):
         print('            Index Error')
         con=1
     if value==0:
-        sys.exit()
+        con=5
     return  con
 
 def inp11():
@@ -92,7 +87,7 @@ def decision2(decisio):
             inputdes =='S'
         except: 
             try :
-                inputdes=='F'
+                inputdes=='0'
             except:
                 try:
                     inputdes.startswith('H')
@@ -101,7 +96,7 @@ def decision2(decisio):
                     continue
         if inputdes=='S':
             decisio=1
-        if inputdes=='F':
+        if inputdes=='0':
             decisio=4
     return decisio , inputdes
 def help(inp):
@@ -312,7 +307,7 @@ def printerfunc(text):
 def easymode():
     b=1
     while b==1:
-        
+        clear()
         print('')
         print('The easy mode contains the following options:')
         print('         A)   Get Geometric Surface Area:')
@@ -323,10 +318,14 @@ def easymode():
         print('         E.2) Create and run the script:')
         print('         F)   Run a simulation (limited parameters and assumed sensible defaults):')
         print('         0)   Exit')
+        print('')
+        print('')
         c=1
         while c==1:
             des=input('Choose an option: ')
+            clear()
             if des=='A':
+                print('         A)   Get Geometric Surface Area:')
                 geomarea= getgeometricsurfacearea()
                 d=1
                 while d==1:
@@ -334,9 +333,12 @@ def easymode():
                     if e=='y':
                         printerfunc(geomarea)
                         d=2
+                        c=2
                     if e=='n':
                         d=2
+                        c=2
             if des=='B':
+                print('         B)   Get Helium void fraction:  ')    
                 voidfrac=getheliumvoidfraction()
                 d=1
                 while d==1:
@@ -344,10 +346,13 @@ def easymode():
                     if e=='y':
                         printerfunc(voidfrac)
                         d=2
+                        c=2
                     if e=='n':
                         d=2
+                        c=2
                 
             if des=='C':
+                print('         C)   Get pore size distribution:')
                 getpore=getporesizedistribution()
                 d=1
                 while d==1:
@@ -355,9 +360,12 @@ def easymode():
                     if e=='y':
                         printerfunc(getpore)
                         d=2
+                        c=2
                     if e=='n':
                         d=2
+                        c=2
             if des=='D':
+                print('         D)   Run a mixture of gases:')        
                 mixt=runmixture()
                 d=1
                 while d==1:
@@ -365,9 +373,12 @@ def easymode():
                     if e=='y':
                         printerfunc(mixt)
                         d=2
+                        c=2
                     if e=='n':
                         d=2
+                        c=2
             if des=='E':
+                print('         E)   Create a script (input file):')        
                 script=createscript()
                 d=1
                 while d==1:
@@ -375,9 +386,12 @@ def easymode():
                     if e=='y':
                         printerfunc(script)
                         d=2
+                        c=2
                     if e=='n':
                         d=2
+                        c=2
             if des=='E.2':
+                print('         E.2) Create and run the script:')        
                 runed, inp=runscript(0)
                 d=1
                 while d==1:
@@ -386,17 +400,20 @@ def easymode():
                         printerfunc(runed)
                         d=2
                     if e=='n':
-                        d=2         
+                        d=2
                 d=1
                 while d==1:
                     e=input('Save in a output file the input file? [y/n]: ')
                     if e=='y':
                         printerfunc(inp)
                         d=2
+                        c=2
                     if e=='n':
-                        d=2         
+                        d=2
+                        c=2
                         
             if des=='F':
+                print('         F)   Run a simulation (limited parameters and assumed sensible defaults):')       
                 out=runn()
                 d=1
                 while d==1:
@@ -404,8 +421,10 @@ def easymode():
                     if e=='y':
                         printerfunc(out)
                         d=2
+                        c=2
                     if e=='n':
-                        d=2                
+                        d=2
+                        c=2
             if des=='0':
                 c=2
                 b=2
@@ -428,10 +447,14 @@ def fullmode():
 def helpmode():
     decisio=1
     while decisio>=1 and decisio<=3:
+        clear()
         if decisio ==1:
             for line in index.keys():
                 print(' '+line)
         inputlo=inp11()
+        if inputlo==0:
+            break
+        clear()
         print('')
         print('')
         submenu(inputlo)
@@ -440,6 +463,7 @@ def helpmode():
         decisio=2
         decisio , inputdes =decision(decisio)
         print(' ')
+        clear()
         if decisio==3:
             spt=1
             while spt==1:
@@ -447,7 +471,8 @@ def helpmode():
                 spt, inputdes=helpdecision()
                 decisio=2
                 if spt==0:
-                    decisio , inputdes=decision2(decisio)                
+                    decisio , inputdes=decision2(decisio)
+                
         if decisio==4:
             print('')
             print('              Ending help mode')
@@ -522,9 +547,6 @@ def getporesizedistribution():
     porsedistrib=RASPA2.get_pore_size_distribution(strc, unit_cells=(a, b, c), cycles=cycles, input_file_type="cif",forcefield=forcefield, bins= bins)    
     x=porsedistrib[0]
     y=porsedistrib[1]
-    print(y)
-    print(x[0])
-    print(x[len(x)-1])
     mtplot.plot(x, y)
     mtplot.xlabel('Binned pore size (Angstrom)')
     mtplot.ylabel('Partial pore volume (cm^3 / g)')
@@ -661,7 +683,16 @@ def runscript(value=1):
 
 
 
-    
+ #############################
+clear()
+work=open('texto.txt','r')
+work1=open('texto.txt','r')
+
+#input=open('input.txt,'+')
+print('           Hello this is a RASPA2 input-file creator'+'\n'+'           Take it easy :D',end='\n')
+nada=input('')
+print('')
+print('') 
     
     
 #####dictionary creator####
@@ -687,16 +718,21 @@ count=0
 print('')
 print('')
 while count==0:
-    des=input('Easy mode [e] / full raspa mode [r] / help mode [h] / exit [0] :   ')
-    if des!='e' and des!='r' and des !='h' and des!='0':
+    des1=input('Easy mode [e] / full raspa mode [r] / help mode [h] / exit [0] :   ')
+    print('')
+    clear()
+    if des1!='e' and des1!='r' and des1 !='h' and des1!='0':
         continue
-    if des=='e':
+    if des1=='e':
         easymode()
-    if des=='r':
+        clear()
+    if des1=='r':
         fullmode()
-    if des=='h':
+        clear()
+    if des1=='h':
         helpmode()
-    if des=='0':
+        clear()
+    if des1=='0':
         count=1
 
 
