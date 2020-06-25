@@ -5,3 +5,7 @@ This version have a few problems as the needing to have the input file in the di
 Also the texto.txt file must be always in the same directory as the inpuscript.py file.
 
 I hope you take fun with this code.
+
+References:
+https://pypi.org/project/RASPA2/
+http://www.iec.northwestern.edu/software.php
