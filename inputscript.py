@@ -674,17 +674,25 @@ def runscript(value=1):
         with open(inpufile, 'r') as myfile:
             inp=myfile.read()
     if value==0:
-        structu=input('Structure [name.format]: ')
-        out=RASPA2.run_script(inp, structu)
+        structurename=input('Input structure name (name.cif): ')
+        structur=structurename.split('.')
+        strc = next(pybel.readfile(structur[1],structurename))
+        strc.unitcell.FillUnitCell(strc.OBMol)
+        strc.calccharges("eqeq")        
+        out=RASPA2.run_script(inp, strc)
     if value==1:
         while value==1:
-            des=input('Structure (Optional) [name.cif/None]: ')
-            if des=='None':
+            structurename=input('Structure (Optional) [name.cif/None]: ')
+            if structurename=='None':
                 value=2
                 out=RASPA2.run_script(inp)
-            if des!=0:
+            if structurename!='None':
+                structur=structurename.split('.')
+                strc = next(pybel.readfile(structur[1],structurename))
+                strc.unitcell.FillUnitCell(strc.OBMol)
+                strc.calccharges("eqeq")        
                 value=2
-                out=RASPA2.run_script(inp, des)
+                out=RASPA2.run_script(inp, strc)
     return out ,inp
 
 
